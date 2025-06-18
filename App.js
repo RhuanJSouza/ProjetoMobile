@@ -43,7 +43,7 @@ function Tabs() {
         name="Escudo"
         component={EscudoScreen}
         options={{
-          title: "Houses",
+          title: "Baralhos",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="shield-outline" size={size} color={color} />
           ),
@@ -53,7 +53,7 @@ function Tabs() {
         name="Personagens"
         component={PersonagensScreen}
         options={{
-          title: "Personagens",
+          title: "Tipos de Leitura",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people-outline" size={size} color={color} />
           ),
@@ -87,7 +87,7 @@ const App = () => {
             name="TargaryenScreen"
             component={TargaryenScreen}
             options={{
-              title: "Casa Targaryen",
+              title: "Tarot de Marselha",
             }}
           />
           <Stack.Screen
@@ -115,7 +115,7 @@ const App = () => {
             name="BaratheonScreen"
             component={BaratheonScreen}
             options={{
-              title: "Casa Baratheon",
+              title: "Oráculo de Maria Padilha",
             }}
           />
           <Stack.Screen

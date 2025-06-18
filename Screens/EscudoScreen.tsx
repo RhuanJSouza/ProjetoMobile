@@ -9,56 +9,33 @@ import {
 import { Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-const casas = [
+const Baralhos = [
   {
-    nome: "Targaryen",
+    nome: "Tarot de Marselha",
     escudo:
-      "https://i.pinimg.com/736x/e9/d3/a0/e9d3a014f0d86f01cd784de53f6ef3a3.jpg",
+      "https://i.pinimg.com/736x/49/7b/7d/497b7d4bebb7dc03860b3eb05a572a3b.jpg",
     rota: "TargaryenScreen",
   },
   {
-    nome: "Baratheon",
+    nome: "Oráculo de Maria Padilha",
     escudo:
-      "https://i.pinimg.com/736x/a2/1a/51/a21a510b93d3f727a3f4ea1c23a27a98.jpg",
+      "https://i.pinimg.com/736x/c6/35/75/c63575d4a7f2d4d27fb369445801ac54.jpg",
     rota: "BaratheonScreen",
   },
-  {
-    nome: "Stark",
-    escudo:
-      "https://i.pinimg.com/736x/3c/b4/7a/3cb47a7cadf0231e5e73ad9a17b54d49.jpg",
-    rota: "StarkScreen",
-  },
-  {
-    nome: "Lannister",
-    escudo:
-      "https://i.pinimg.com/736x/13/ce/a6/13cea67e7814e53ed5ecb7cdcb597b0d.jpg",
-    rota: "LannisterScreen",
-  },
-  {
-    nome: "Tyrell",
-    escudo:
-      "https://i.pinimg.com/736x/17/b4/14/17b41404e3b99103aeca414207764e55.jpg",
-    rota: "TyrellScreen",
-  },
-  {
-    nome: "Arryn",
-    escudo:
-      "https://i.pinimg.com/736x/a0/ee/fd/a0eefdd4890af4f86a80cfbe0f575b56.jpg",
-    rota: "ArrynScreen",
-  },
+  
 ];
 
 const EscudoScreen = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {casas.map((casa, index) => (
+      {Baralhos.map((Baralhos, index) => (
         <TouchableOpacity
           key={index}
           style={styles.card}
-          onPress={() => navigation.navigate(casa.rota)}
+          onPress={() => navigation.navigate(Baralhos.rota)}
         >
-          <Text style={styles.title}>{casa.nome}</Text>
-          <Image source={{ uri: casa.escudo }} style={styles.image} />
+          <Text style={styles.title}>{Baralhos.nome}</Text>
+          <Image source={{ uri: Baralhos.escudo }} style={styles.image} />
         </TouchableOpacity>
       ))}
     </ScrollView>

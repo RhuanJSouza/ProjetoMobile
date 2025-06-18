@@ -4,15 +4,16 @@ import { Text } from "react-native-paper";
 
 const BaratheonScreen = () => (
   <View style={styles.container}>
-    <Text style={styles.title}>Casa Baratheon</Text>
+    <Text style={styles.title}>Oráculo de Maria Padilha</Text>
     <Image
       source={{
-        uri: "https://i.pinimg.com/736x/a2/1a/51/a21a510b93d3f727a3f4ea1c23a27a98.jpg",
+        uri: "https://m.media-amazon.com/images/I/61wir6+oHUL.jpg",
       }}
       style={styles.image}
     />
     <Text style={styles.description}>
-      "Nossa é a Fúria" — A força do veado coroado.
+    Oráculo composto por 36 cartas, inspirado na entidade espiritual Maria Padilha.
+    As cartas tem fins divinatórios e de autoconhecimento, com cada carta representando símbolos e energias ligadas a entidade. 
     </Text>
   </View>
 );

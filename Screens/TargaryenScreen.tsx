@@ -11,15 +11,15 @@ import { Provider as PaperProvider } from "react-native-paper";
 
 const TargaryenScreen = () => (
   <View style={styles.container}>
-    <Text style={styles.title}>Casa Targaryen</Text>
+    <Text style={styles.title}>Tarot de Marselha</Text>
     <Image
       source={{
-        uri: "https://i.pinimg.com/736x/e9/d3/a0/e9d3a014f0d86f01cd784de53f6ef3a3.jpg",
+        uri: "https://i.pinimg.com/736x/c4/d4/75/c4d475a3e15f4f515c0c52ea607eba4c.jpg",
       }}
       style={styles.image}
     />
     <Text style={styles.description}>
-      "Fogo e Sangue" — A dinastia dos dragões.
+    Clássico. Trata-se de um conjunto de 78 cartas, distribuídas em dois grupos: arcanos maiores e arcanos menores.
     </Text>
   </View>
 );
