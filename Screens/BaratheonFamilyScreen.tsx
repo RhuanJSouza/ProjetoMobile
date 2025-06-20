@@ -1,31 +1,40 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const BaratheonFamilyScreen = () => {
+  const navigation = useNavigation();
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Image
         source={{
-          uri: "https://i.pinimg.com/originals/c3/0f/a2/c30fa2d536dc01d3819af9f069aee58f.gif",
+          uri: "https://i.pinimg.com/564x/74/61/59/7461598e41d817176f649adaa9d42308.jpg",
         }}
         style={styles.image}
       />
-      <Text style={styles.title}>Casa Baratheon</Text>
+      <Text style={styles.title}>Jogada de 15 cartas</Text>
       <Text style={styles.description}>
-        A Casa Baratheon é uma das casas grandes de Westeros e conhecida por sua
-        força e resiliência. Fundada por Steffon Baratheon, ela tornou-se uma
-        casa real quando Robert Baratheon tomou o Trono de Ferro. Seu brasão é
-        um veado negro em fundo dourado, simbolizando sua força e majestade.
+        Essa é uma tiragem aprofundada, ideal para análises complexas ou temas
+        mais amplos. As 15 cartas revelam aspectos conscientes, inconscientes,
+        influências externas, tendências futuras e conselhos.
       </Text>
 
-      <Text style={styles.subTitle}>Membros Famosos:</Text>
-      <Text style={styles.text}>- Robert Baratheon (Rei Robert)</Text>
-      <Text style={styles.text}>- Stannis Baratheon</Text>
-      <Text style={styles.text}>- Renly Baratheon</Text>
-      <Text style={styles.text}>- Shireen Baratheon</Text>
+      <Text style={styles.subTitle}>Composta por:</Text>
+      <Text style={styles.text}>- 15 cartas organizadas em 3 linhas</Text>
+      <Text style={styles.text}>- Exploração profunda do tema</Text>
+      <Text style={styles.text}>- Recomendada para grandes decisões</Text>
 
-      <Text style={styles.subTitle}>Slogan:</Text>
-      <Text style={styles.text}>- "O Deus do Fogo é Justo"</Text>
+      <Button
+        mode="contained"
+        onPress={() => navigation.navigate("Agendamento")}
+        style={styles.button}
+        buttonColor="#b0060f"
+        textColor="#fff"
+      >
+        Agendar Consulta
+      </Button>
     </ScrollView>
   );
 };
@@ -34,6 +43,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     backgroundColor: "#fff",
+    flexGrow: 1,
   },
   image: {
     width: "100%",
@@ -60,6 +70,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     marginVertical: 5,
+  },
+  button: {
+    marginTop: 30,
+    marginBottom: 20,
   },
 });
 

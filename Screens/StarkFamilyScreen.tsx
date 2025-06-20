@@ -1,33 +1,38 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const StarkFamilyScreen = () => {
+  const navigation = useNavigation();
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Image
         source={{
-          uri: "https://i.pinimg.com/736x/bb/24/45/bb2445a9828480b0be7c6e3f9bfddbfa.jpg",
+          uri: "https://humaniamor.com.br/wp-content/uploads/2024/08/Tiragem-Peladan.jpg",
         }}
         style={styles.image}
       />
-      <Text style={styles.title}>Casa Stark</Text>
+      <Text style={styles.title}>Mandala de 5 cartas</Text>
       <Text style={styles.description}>
-        A Casa Stark é uma das casas mais antigas e influentes do norte de
-        Westeros. Seu brasão é um lobo branco em fundo cinza. A casa é conhecida
-        por sua lealdade, honra e por governar o Norte de Westeros.
+        Essa tiragem oferece uma visão mais detalhada e equilibrada sobre uma questão. As cinco cartas geralmente representam: o centro da questão, influências passadas, influências futuras, desafios e forças a favor.
       </Text>
 
-      <Text style={styles.subTitle}>Membros Famosos:</Text>
-      <Text style={styles.text}>- Eddard Stark</Text>
-      <Text style={styles.text}>- Catelyn Stark</Text>
-      <Text style={styles.text}>- Robb Stark</Text>
-      <Text style={styles.text}>- Sansa Stark</Text>
-      <Text style={styles.text}>- Arya Stark</Text>
-      <Text style={styles.text}>- Bran Stark</Text>
-      <Text style={styles.text}>- Jon Snow</Text>
+      <Text style={styles.subTitle}>Composta por:</Text>
+      <Text style={styles.text}>- 5 cartas escolhidas pelo consulente</Text>
+      <Text style={styles.text}>- Posições específicas de análise</Text>
+      <Text style={styles.text}>- Orientação e equilíbrio</Text>
 
-      <Text style={styles.subTitle}>Slogan:</Text>
-      <Text style={styles.text}>- "O Inverno Está Chegando"</Text>
+      <Button
+              mode="contained"
+              onPress={() => navigation.navigate("Agendamento")}
+              style={styles.button}
+              buttonColor="#b0060f"
+              textColor="#fff"
+            >
+              Agendar Consulta
+            </Button>
     </ScrollView>
   );
 };
@@ -36,6 +41,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     backgroundColor: "#fff",
+    flexGrow: 1,
   },
   image: {
     width: "100%",
@@ -62,6 +68,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     marginVertical: 5,
+  },
+  button: {
+    marginTop: 30,
+    marginBottom: 20,
   },
 });
 

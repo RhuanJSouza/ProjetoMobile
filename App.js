@@ -12,20 +12,13 @@ import MomentosMarcantesScreen from "./Screens/MomentosMarcanteScreens";
 
 // Telas das casas
 import TargaryenScreen from "./Screens/TargaryenScreen";
-import StarkScreen from "./Screens/StarkScreen";
-import TyrellScreen from "./Screens/TyrellScreen";
-import LannisterScreen from "./Screens/LannisterScreen";
 import BaratheonScreen from "./Screens/BaratheonScreen";
-import ArrynScreen from "./Screens/ArrynScreen";
 
-// telas das Familias
-
+// Telas das famílias
 import TargaryenFamilyScreen from "./Screens/TargaryenFamilyScreen";
 import StarkFamilyScreen from "./Screens/StarkFamilyScreen";
-import LannisterFamilyScreen from "./Screens/LannisterFamilyScreen";
 import BaratheonFamilyScreen from "./Screens/BaratheonFamilyScreen";
-import TyrellFamilyScreen from "./Screens/TyrellFamilyScreen";
-import ArrynFamilyScreen from "./Screens/ArrynFamilyScreen";
+import AgendamentoScreen from "./Screens/AgendamentoScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,7 +38,7 @@ function Tabs() {
         options={{
           title: "Baralhos",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="shield-outline" size={size} color={color} />
+            <Ionicons name="moon-outline" size={size} color={color} />
           ),
         }}
       />
@@ -53,9 +46,9 @@ function Tabs() {
         name="Personagens"
         component={PersonagensScreen}
         options={{
-          title: "Tipos de Leitura",
+          title: "Agendar Leitura",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people-outline" size={size} color={color} />
+            <Ionicons name="star-outline" size={size} color={color} />
           ),
         }}
       />
@@ -63,9 +56,9 @@ function Tabs() {
         name="MomentosMarcantesScreen"
         component={MomentosMarcantesScreen}
         options={{
-          title: "Momentos Marcantes ",
+          title: "Horóscopo Solar",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="flame-outline" size={size} color={color} />
+            <Ionicons name="sunny-outline" size={size} color={color} />
           ),
         }}
       />
@@ -91,27 +84,6 @@ const App = () => {
             }}
           />
           <Stack.Screen
-            name="StarkScreen"
-            component={StarkScreen}
-            options={{
-              title: "Casa Stark",
-            }}
-          />
-          <Stack.Screen
-            name="TyrellScreen"
-            component={TyrellScreen}
-            options={{
-              title: "Casa Tyrell",
-            }}
-          />
-          <Stack.Screen
-            name="LannisterScreen"
-            component={LannisterScreen}
-            options={{
-              title: "Casa Lannister",
-            }}
-          />
-          <Stack.Screen
             name="BaratheonScreen"
             component={BaratheonScreen}
             options={{
@@ -119,54 +91,30 @@ const App = () => {
             }}
           />
           <Stack.Screen
-            name="ArrynScreen"
-            component={ArrynScreen}
-            options={{
-              title: "Casa Arryn",
-            }}
-          />
-
-          <Stack.Screen
             name="TargaryenFamilyScreen"
             component={TargaryenFamilyScreen}
             options={{
-              title: "Familia Targaryen",
+              title: "Mandala de 3 cartas",
             }}
           />
           <Stack.Screen
             name="StarkFamilyScreen"
             component={StarkFamilyScreen}
             options={{
-              title: "Familia Stark",
-            }}
-          />
-          <Stack.Screen
-            name="LannisterFamilyScreen"
-            component={LannisterFamilyScreen}
-            options={{
-              title: "Familia Lannister",
+              title: "Mandala de 5 cartas",
             }}
           />
           <Stack.Screen
             name="BaratheonFamilyScreen"
             component={BaratheonFamilyScreen}
             options={{
-              title: "Familia Baratheon",
+              title: "Jogada de 15 cartas",
             }}
           />
           <Stack.Screen
-            name="TyrellFamilyScreen"
-            component={TyrellFamilyScreen}
-            options={{
-              title: "Familia Tyrell",
-            }}
-          />
-          <Stack.Screen
-            name="ArrynFamilyScreen"
-            component={ArrynFamilyScreen}
-            options={{
-              title: "Familia Arryn",
-            }}
+            name="Agendamento"
+            component={AgendamentoScreen}
+            options={{ title: "Agendamento" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

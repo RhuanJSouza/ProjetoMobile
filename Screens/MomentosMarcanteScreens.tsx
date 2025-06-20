@@ -1,97 +1,237 @@
-import React from "react";
-import { ScrollView, Image, StyleSheet, View } from "react-native";
-import { Card, Text } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View, ActivityIndicator, Text } from "react-native";
+import { Card } from "react-native-paper";
 
-const momentos = [
-  {
-    titulo: "Casamento Vermelho",
-    descricao:
-      "Um massacre chocante em meio a um casamento entre os Frey e os Stark, mudando completamente o rumo da guerra.",
-    imagem:
-      "https://i.pinimg.com/736x/72/16/78/721678589261b3dc25402d8e188dcc3d.jpg",
-  },
-  {
-    titulo: "Nascem os Dragões",
-    descricao:
-      "Daenerys entra na pira funerária de Khal Drogo e sai ilesa com três dragões recém-nascidos.",
-    imagem:
-      "https://i.pinimg.com/736x/d6/9a/e4/d69ae46009fbb607b15a6cc088851ba9.jpg",
-  },
-  {
-    titulo: "Batalha dos Bastardos",
-    descricao:
-      "Jon Snow enfrenta Ramsay Bolton em uma das batalhas mais épicas da série para retomar Winterfell.",
-    imagem:
-      "https://i.pinimg.com/736x/70/45/84/704584a27e0ea825da617a88241845b8.jpg",
-  },
-  {
-    titulo: "Morte de Ned Stark",
-    descricao:
-      "A inesperada execução de Ned Stark marcou o fim da inocência dos fãs e mostrou que ninguém está a salvo.",
-    imagem:
-      "https://i.pinimg.com/736x/73/cc/1d/73cc1d506a6b60b3852090abbbc36ff5.jpg",
-  },
-  {
-    titulo: "Explosão do Septo de Baelor",
-    descricao:
-      "Cersei destrói o Grande Septo com fogo-vivo, eliminando todos seus inimigos de uma só vez.",
-    imagem:
-      "https://i.pinimg.com/736x/e2/80/a2/e280a2acfd6a500c08ba5ffc4f57469b.jpg",
-  },
+const signos = [
+  "aries", "taurus", "gemini", "cancer",
+  "leo", "virgo", "libra", "scorpio",
+  "sagittarius", "capricorn", "aquarius", "pisces"
 ];
 
-const MomentosMarcantesScreen = () => {
+const nomesSignos = {
+  aries: "Áries",
+  taurus: "Touro",
+  gemini: "Gêmeos",
+  cancer: "Câncer",
+  leo: "Leão",
+  virgo: "Virgem",
+  libra: "Libra",
+  scorpio: "Escorpião",
+  sagittarius: "Sagitário",
+  capricorn: "Capricórnio",
+  aquarius: "Aquário",
+  pisces: "Peixes",
+};
+
+const fallbacks = {
+  aries: "Hoje é um dia para tomar a iniciativa. Sua energia está alta e você pode liderar projetos importantes.",
+  taurus: "Momento de focar em segurança financeira. Evite gastos impulsivos e consolide suas bases.",
+  gemini: "Comunicação em alta! Ótimo dia para reuniões, networking e troca de ideias.",
+  cancer: "Siga sua intuição nas questões familiares. Emoções podem estar mais sensíveis hoje.",
+  leo: "Seu carisma está brilhando! Aproveite para mostrar seus talentos e conquistar reconhecimento.",
+  virgo: "Dia perfeito para organização. Detalhes importantes merecem sua atenção especial.",
+  libra: "Equilíbrio é a palavra-chave. Busque harmonia em seus relacionamentos e decisões.",
+  scorpio: "Transforme algo que já não serve mais. Momento poderoso para renovação interna.",
+  sagittarius: "Aventure-se em novos conhecimentos. Uma oportunidade de aprendizado pode surgir.",
+  capricorn: "Foco em metas de longo prazo. Sua disciplina trará resultados sólidos.",
+  aquarius: "Ideias inovadoras surgem naturalmente. Compartilhe suas visões com o mundo.",
+  pisces: "Sensibilidade artística em destaque. Conecte-se com sua criatividade e emoções.",
+};
+
+const traduzirTexto = async (texto) => {
+  try {
+    const response = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=en|pt-BR`
+    );
+    const data = await response.json();
+    if (data.responseData && data.responseData.translatedText) {
+      return data.responseData.translatedText;
+    }
+    return texto;
+  } catch (error) {
+    return texto;
+  }
+};
+
+export default function SignosScreen() {
+  const [horoscopos, setHoroscopos] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchHoroscopos = async () => {
+      try {
+        const horoscopoData = {};
+        for (const signo of signos) {
+          try {
+            const res = await fetch(
+              `https://aztro.sameerkumar.website?sign=${signo}&day=today`,
+              { method: 'POST' }
+            );
+            const data = await res.json();
+            const descricaoTraduzida = await traduzirTexto(data.description);
+            horoscopoData[signo] = {
+              description: descricaoTraduzida,
+              date: data.current_date,
+            };
+          } catch (signoError) {
+            horoscopoData[signo] = {
+              description: fallbacks[signo],
+              date: new Date().toLocaleDateString('pt-BR')
+            };
+          }
+          await new Promise(resolve => setTimeout(resolve, 300));
+        }
+        setHoroscopos(horoscopoData);
+        setLoading(false);
+      } catch (err) {
+        setError("Falha na conexão com o serviço astrológico");
+        setLoading(false);
+      }
+    };
+
+    fetchHoroscopos();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#b0060f" />
+        <Text>Consultando as estrelas...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Momentos Marcantes de Game of Thrones</Text>
-      {momentos.map((momento, index) => (
-        <Card key={index} style={styles.card}>
-          <Image source={{ uri: momento.imagem }} style={styles.image} />
-          <Card.Content>
-            <Text style={styles.title}>{momento.titulo}</Text>
-            <Text style={styles.description}>{momento.descricao}</Text>
+      <Text style={styles.header}>Previsões Astrológicas Diárias</Text>
+
+      {signos.map((signo) => (
+        <Card key={signo} style={styles.card}>
+          <Card.Content style={styles.cardContent}>
+            <View style={styles.iconContainer}>
+              <Text style={styles.icon}>{getSymbol(signo)}</Text>
+            </View>
+
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>
+                {nomesSignos[signo]}
+              </Text>
+
+              <Text style={styles.date}>
+                {horoscopos[signo]?.date}
+              </Text>
+
+              <Text style={styles.description}>
+                {horoscopos[signo]?.description}
+              </Text>
+            </View>
           </Card.Content>
         </Card>
       ))}
     </ScrollView>
   );
-};
+}
+
+function getSymbol(signo) {
+  const symbols = {
+    aries: "♈",
+    taurus: "♉",
+    gemini: "♊",
+    cancer: "♋",
+    leo: "♌",
+    virgo: "♍",
+    libra: "♎",
+    scorpio: "♏",
+    sagittarius: "♐",
+    capricorn: "♑",
+    aquarius: "♒",
+    pisces: "♓"
+  };
+  return symbols[signo] || "";
+}
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
   container: {
-    padding: 10,
+    padding: 15,
+    paddingBottom: 30,
+    backgroundColor: '#f5f5f5'
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: '#fff',
+    padding: 20
+  },
+  errorText: {
+    color: '#d32f2f',
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold'
   },
   header: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 15,
+    marginTop: 10,
     textAlign: "center",
+    color: "#b0060f",
+    marginBottom: 20
   },
   card: {
     marginBottom: 20,
-    borderRadius: 10,
-    overflow: "hidden",
+    borderRadius: 12,
     elevation: 3,
+    backgroundColor: "#ffffff",
+    overflow: 'hidden',
   },
-  image: {
-    height: 200,
-    width: "100%",
+  cardContent: {
+    flexDirection: 'row',
+    padding: 15,
+    alignItems: 'center'
+  },
+  iconContainer: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#f8e6e8',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+    borderWidth: 2,
+    borderColor: '#b0060f'
+  },
+  icon: {
+    fontSize: 30,
+    color: '#b0060f'
+  },
+  textContainer: {
+    flex: 1
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 10,
+    color: "#333",
+    marginBottom: 5
+  },
+  date: {
+    fontSize: 13,
+    color: "#777",
+    marginBottom: 10,
+    fontStyle: 'italic'
   },
   description: {
-    marginTop: 5,
-    fontSize: 14,
-    textAlign: "justify",
+    fontSize: 15,
+    textAlign: "left",
+    color: "#555",
+    lineHeight: 20
   },
 });
-
-export default MomentosMarcantesScreen;
